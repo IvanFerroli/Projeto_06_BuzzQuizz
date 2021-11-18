@@ -6,8 +6,36 @@
     <title>Projeto BuzzQuiz</title>
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <header>
+      <span>BuzzQuiz</span>
+    </header>
+    <main class="corpo-app">
+      <div class="quiz-usuario escondido">
+        <span>Seus Quizzes</span>
+        <button class="criar-quizz">
+          <img src="./assets/Rectangle 33.png" alt="Erro" />
+          <img id="plus" src="./assets/Vector1.png" alt="Erro" />
+        </button>
+      </div>
+      <div class="quiz-usuario-sem-quiz">
+        <span>Você não criou nenhum quizz ainda :(</span>
+        <button>Criar Quizz</button>
+      </div>
+      <div class="quiz-servidor">
+        <span>Todos os Quizzes</span>
+        <div class="quiz-content">
+          <span>O quanto você conhece de Friends?</span>
+        </div>
+      </div>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
   </body>
