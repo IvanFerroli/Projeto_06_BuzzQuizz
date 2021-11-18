@@ -16,6 +16,7 @@ promisse.then((resposta) => {
     /* console.log(
       "o tamanho do array de perguntas eh: " + resposta.data[i].questions.length
     ); */
+
     for (let x = 0; x < resposta.data[i].questions.length; x++) {
       console.log(
         `o titulo da pergunta ${x + 1} eh :  ${
@@ -41,6 +42,24 @@ promisse.then((resposta) => {
             ${resposta.data[i].questions[x].answers[n].isCorrectAnswer}`
         );
       }
+    }
+    for (let x = 0; x < resposta.data[i].levels.length; x++) {
+      console.log(
+        `No nivel ${x + 1} o titulo eh : ${resposta.data[i].levels[x].title} `
+      );
+      console.log(
+        ` No nivel ${x + 1} temos a imagem : ${
+          resposta.data[i].levels[x].image
+        }`
+      );
+      console.log(
+        ` No nivel ${x + 1} temos o texto : ${resposta.data[i].levels[x].text}`
+      );
+      console.log(
+        ` No nivel ${x + 1} temos o minValue : ${
+          resposta.data[i].levels[x].minValue
+        }`
+      );
     }
   }
 });
