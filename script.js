@@ -1,29 +1,95 @@
-let promisse;
-promisse = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+let requisicaoGetQuizz;
+let requisicaoGetQuizzID;
+const lugarQuiz = document.querySelector(".quiz-servidor");
 
-promisse.then((resposta) => {
-  let dados = resposta.data;
-  for (let i = 0; i < dados.length; i++) {
-    let id = dados[i].id;
-    let titulo = dados[i].title;
-    let imagem = dados[i].image;
+const comecarApp = () => {
+  requisicaoGetQuizz = axios.get(
+    "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
+  );
 
-    const lugarQuiz = document.querySelector(".quiz-servidor");
+  requisicaoGetQuizz.then((resposta) => {
+    let dados = resposta.data;
+    for (let i = 0; i < dados.length; i++) {
+      let id = dados[i].id;
+      let titulo = dados[i].title;
+      let imagem = dados[i].image;
 
-    lugarQuiz.innerHTML += RenderizarQuiz(id, titulo);
-    let urlImage = document.querySelector(`.id${id}`);
-    console.log({ urlImage });
-    console.log({ imagem });
-    urlImage.style.backgroundImage = "url(" + imagem + ")";
-    console.log(urlImage.style.backgroundImage);
-  }
-});
+      lugarQuiz.innerHTML += RenderizarQuiz(id, titulo);
+      let urlImage = document.querySelector(`.id${id}`);
+      urlImage.style.backgroundImage = "url(" + imagem + ")";
+    }
+  });
+};
+comecarApp();
+
 function RenderizarQuiz(id, titulo) {
   return `
-      <div class="quiz-content id${id}">
+      <div class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
         <div id="insideTextSpan">${titulo}</div>
       </div>`;
 }
+function mudarTelaQuizz(quiz) {
+  let idSelecionadoStr = quiz.className;
+  console.log(idSelecionadoStr);
+  idSelecionadoStr = quiz.className.replace(" ", "");
+  console.log(idSelecionadoStr);
+  let idSelecionado = idSelecionadoStr.replace("quiz-contentid", "");
+
+  lugarQuiz.innerHTML = "";
+  let fechandoPrimeiraTela = document.querySelector(".corpo-app");
+  fechandoPrimeiraTela.classList.add("escondido");
+  let segundaTela = document.querySelector(".exibicao-quiz");
+  segundaTela.classList.remove("escondido");
+
+  requisicaoGetQuizzID = axios.get(
+    `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idSelecionado}`
+  );
+  requisicaoGetQuizzID.then((resposta) => {
+    console.log(resposta.data.title);
+    console.log(resposta.data.image);
+    for (let i = 0; i < resposta.data.questions.length; i++) {
+      console.log(
+        `o titulo da pergunta ${i + 1} eh :  ${
+          resposta.data.questions[i].title
+        }`
+      );
+      console.log(
+        `a cor da pergunta ${i + 1} eh :  ${resposta.data.questions[i].color}`
+      );
+      for (let j = 0; j < resposta.data.questions[i].answers.length; j++) {
+        console.log(
+          `O texto da resposta ${j + 1} da pergunta ${i + 1} eh :
+            ${resposta.data.questions[i].answers[j].text}`
+        );
+        console.log(
+          `A image, da resposta ${j + 1} da pergunta ${i + 1} eh : 
+            ${resposta.data.questions[i].answers[j].image}`
+        );
+        console.log(
+          `O isCorrectAnswer da resposta ${j + 1} da pergunta ${i + 1} eh : 
+            ${resposta.data.questions[i].answers[j].isCorrectAnswer}`
+        );
+      }
+    }
+    for (let i = 0; i < resposta.data.levels.length; i++) {
+      console.log(
+        `No nivel ${i + 1} o titulo eh : ${resposta.data.levels[i].title} `
+      );
+      console.log(
+        ` No nivel ${i + 1} temos a imagem : ${resposta.data.levels[i].image}`
+      );
+      console.log(
+        ` No nivel ${i + 1} temos o texto : ${resposta.data.levels[i].text}`
+      );
+      console.log(
+        ` No nivel ${i + 1} temos o minValue : ${
+          resposta.data.levels[i].minValue
+        }`
+      );
+    }
+  });
+}
+
 /* promisse.then((resposta) => {
   
 
