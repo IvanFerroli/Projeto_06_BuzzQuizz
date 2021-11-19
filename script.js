@@ -19,8 +19,10 @@ function RenderizarQuiz(id, titulo, imagem) {
 /* promisse.then((resposta) => {
   
 
-  for (let i = 0; i < resposta.data.length; i++) {
-    console.log("o id eh :" + resposta.data[i].id);
+
+    for (let i = 0; i < resposta.data.length; i++) {
+        console.log("o id eh :" + resposta.data[i].id);
+
 
     console.log("o titulo do quizz eh" + resposta.data[i].title);
     console.log("o link da imagem eh" + resposta.data[i].image);
@@ -29,51 +31,53 @@ function RenderizarQuiz(id, titulo, imagem) {
     console.log("o level eh :");
     console.log(resposta.data[i].levels);
 
-    for (let x = 0; x < resposta.data[i].questions.length; x++) {
-      console.log(
-        `o titulo da pergunta ${x + 1} eh :  ${
+
+
+        for (let x = 0; x < resposta.data[i].questions.length; x++) {
+            console.log(
+                `o titulo da pergunta ${x + 1} eh :  ${
           resposta.data[i].questions[x].title
         }`
-      );
-      console.log(
-        `a cor da pergunta ${x + 1} eh :  ${
+            );
+            console.log(
+                `a cor da pergunta ${x + 1} eh :  ${
           resposta.data[i].questions[x].color
         }`
-      );
-      for (let n = 0; n < resposta.data[i].questions[x].answers.length; n++) {
-        console.log(
-          `O texto da resposta ${n + 1} da pergunta ${x + 1} eh :
+            );
+            for (let n = 0; n < resposta.data[i].questions[x].answers.length; n++) {
+                console.log(
+                    `O texto da resposta ${n + 1} da pergunta ${x + 1} eh :
             ${resposta.data[i].questions[x].answers[n].text}`
-        );
-        console.log(
-          `A image, da resposta ${n + 1} da pergunta ${x + 1} eh : 
+                );
+                console.log(
+                    `A image, da resposta ${n + 1} da pergunta ${x + 1} eh : 
             ${resposta.data[i].questions[x].answers[n].image}`
-        );
-        console.log(
-          `O isCorrectAnswer da resposta ${n + 1} da pergunta ${x + 1} eh : 
+                );
+                console.log(
+                    `O isCorrectAnswer da resposta ${n + 1} da pergunta ${x + 1} eh : 
             ${resposta.data[i].questions[x].answers[n].isCorrectAnswer}`
-        );
-      }
-    }
-    for (let x = 0; x < resposta.data[i].levels.length; x++) {
-      console.log(
-        `No nivel ${x + 1} o titulo eh : ${resposta.data[i].levels[x].title} `
-      );
-      console.log(
-        ` No nivel ${x + 1} temos a imagem : ${
+                );
+            }
+        }
+        for (let x = 0; x < resposta.data[i].levels.length; x++) {
+            console.log(
+                `No nivel ${x + 1} o titulo eh : ${resposta.data[i].levels[x].title} `
+            );
+            console.log(
+                ` No nivel ${x + 1} temos a imagem : ${
           resposta.data[i].levels[x].image
         }`
-      );
-      console.log(
-        ` No nivel ${x + 1} temos o texto : ${resposta.data[i].levels[x].text}`
-      );
-      console.log(
-        ` No nivel ${x + 1} temos o minValue : ${
+            );
+            console.log(
+                ` No nivel ${x + 1} temos o texto : ${resposta.data[i].levels[x].text}`
+            );
+            console.log(
+                ` No nivel ${x + 1} temos o minValue : ${
           resposta.data[i].levels[x].minValue
         }`
-      );
+            );
+        }
     }
-  }
 });
  */
 //Funcoes de validacao
