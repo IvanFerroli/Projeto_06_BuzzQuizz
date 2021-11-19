@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projeto BuzzQuiz</title>
@@ -9,35 +8,45 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,400;1,500;1,700&display=swap" rel="stylesheet" />
-</head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
     <header>
-        <span>BuzzQuiz</span>
+      <span>BuzzQuiz</span>
     </header>
     <main class="corpo-app">
-        <div class="quiz-usuario escondido">
-            <span>Seus Quizzes</span>
-            <button class="criar-quizz">
+      <div class="quiz-usuario escondido">
+        <span>Seus Quizzes</span>
+        <button class="criar-quizz">
           <img src="./assets/Rectangle 33.png" alt="Erro" />
           <img id="plus" src="./assets/Vector1.png" alt="Erro" />
         </button>
+      </div>
+      <div class="quiz-usuario-sem-quiz">
+        <span>Você não criou nenhum quizz ainda :(</span>
+        <button>Criar Quizz</button>
+      </div>
+      <div class="quiz-servidor">
+        <div id="titleSpan">Todos os Quizzes</div>
+        <!-- <div class="quiz-content">
+          <div id="insideTextSpan">O quanto você conhece de Friends?</div>
         </div>
-        <div class="quiz-usuario-sem-quiz">
-            <span>Você não criou nenhum quizz ainda :(</span>
-            <button>Criar Quizz</button>
+        <div class="quiz-content">
+          <div id="insideTextSpan">O quanto você conhece de Friends?</div>
         </div>
-        <div class="quiz-servidor">
-            <div id="titleSpan">Todos os Quizzes</div>
-            <div class="quiz-content">
-                <div id="insideTextSpan">O quanto você conhece de Friends?</div>
-                
-            </div>
+        <div class="quiz-content">
+          <div id="insideTextSpan">O quanto você conhece de Friends?</div>
         </div>
+        <div class="quiz-content">
+          <div id="insideTextSpan">O quanto você conhece de Friends?</div>
+        </div> -->
+      </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>

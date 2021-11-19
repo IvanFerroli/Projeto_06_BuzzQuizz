@@ -10,11 +10,19 @@ promisse.then((resposta) => {
 
     const lugarQuiz = document.querySelector(".quiz-servidor");
 
-    lugarQuiz.innerHTML += RenderizarQuiz(id, titulo, imagem);
+    lugarQuiz.innerHTML += RenderizarQuiz(id, titulo);
+    let urlImage = document.querySelector(`.id${id}`);
+    console.log({ urlImage });
+    console.log({ imagem });
+    urlImage.style.backgroundImage = "url(" + imagem + ")";
+    console.log(urlImage.style.backgroundImage);
   }
 });
-function RenderizarQuiz(id, titulo, imagem) {
-  return ``;
+function RenderizarQuiz(id, titulo) {
+  return `
+      <div class="quiz-content id${id}">
+        <div id="insideTextSpan">${titulo}</div>
+      </div>`;
 }
 /* promisse.then((resposta) => {
   

@@ -12,6 +12,7 @@ header {
   align-items: center;
   position: fixed;
   top: 0px;
+  z-index: 99;
 }
 
 header span {
@@ -24,7 +25,7 @@ header span {
 
 .corpo-app {
   width: 100%;
-  height: 736px;
+  height: auto;
   margin-top: 0px;
   display: flex;
   flex-direction: column;
@@ -68,6 +69,7 @@ header span {
 }
 
 .quiz-usuario-sem-quiz {
+  margin-top: 90px;
   width: 90%;
   height: 181px;
   background: #fafafa;
@@ -109,6 +111,7 @@ header span {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin-top: 69px;
 }
 
 .quiz-servidor #titleSpan {
@@ -134,11 +137,12 @@ header span {
     rgba(0, 0, 0, 0.5) 64.58%,
     #000000 100%
   );
-  background-image: url("https://img.quizur.com/f/img60229135637eb5.97078183.jpg?lastEdited=1612878137");
+  background-image: url();
   background-position: center;
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
+  margin-bottom: 14px;
 }
 
 .quiz-content #insideTextSpan {
