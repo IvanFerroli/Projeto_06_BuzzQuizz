@@ -30,7 +30,7 @@ header span {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: blue;
+  background-color: #ffffff;
 }
 .quiz-usuario {
   width: 90%;
@@ -130,7 +130,7 @@ header span {
   background-image: url("https://img.quizur.com/f/img60229135637eb5.97078183.jpg?lastEdited=1612878137");
   background-position: center;
   position: relative;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
 }
 .quiz-content span {
   position: absolute;
