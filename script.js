@@ -1,6 +1,13 @@
 let requisicaoGetQuizz;
 let requisicaoGetQuizzID;
 const lugarQuiz = document.querySelector(".quiz-servidor");
+let respostasRenderizadasArray = [];
+function embaralhador() {
+  return Math.random() - 0.5;
+}
+let containerAlternativas = document.querySelectorAll(
+  ".container-alternativas"
+);
 
 const comecarApp = () => {
   requisicaoGetQuizz = axios.get(
@@ -62,63 +69,60 @@ function mudarTelaQuizz(quiz) {
     for (let i = 0; i < dadosExibicao.questions.length; i++) {
       let titleQuestion = dadosExibicao.questions[i].title;
       let colorQuestion = dadosExibicao.questions[i].color;
-      let cardPergunta = document.querySelector(".card-pergunta");
-      console.log(cardPergunta);
 
-      cardPergunta.innerHTML += RenderizarQuizExibicaoPergunta(
-        titleQuestion,
-        colorQuestion
-      );
-      let trocaCor = (color) => {
-        let caixaPergunta = document.querySelector(".caixa-de-pergunta");
+      const geraCardPergunta = () => {
+        return ` <div class="card-pergunta"></div>`;
+      };
+      corpoApp2.innerHTML += geraCardPergunta();
+
+      const cardPergunta = document.querySelectorAll(".card-pergunta");
+
+      cardPergunta[i].innerHTML +=
+        RenderizarQuizExibicaoPergunta(titleQuestion);
+
+      /* let trocaCor = (color, i) => {
+        const caixaPergunta = document.querySelectorAll(".caixa-de-pergunta");
+        caixaPergunta[i].style.backgroundColor = color;
+        console.log(caixaPergunta);
+
+        console.log(color, i);
         caixaPergunta.style.backgroundColor = color;
       };
-      trocaCor(colorQuestion);
+      trocaCor(colorQuestion, i); */
       for (let j = 0; j < dadosExibicao.questions[i].answers.length; j++) {
-        let titleAnswer = dadosExibicao.questions[i].answers[j].title;
+        let titleAnswer = dadosExibicao.questions[i].answers[j].text;
         let imageAnswer = dadosExibicao.questions[i].answers[j].image;
         let isCorrectAnswer =
           dadosExibicao.questions[i].answers[j].isCorrectAnswer;
-        let containerAlternativas = document.querySelector(
-          ".container-alternativas"
-        );
-        containerAlternativas.innerHTML += RenderizarQuizExibicaoRespostas(
-          titleAnswer,
-          isCorrectAnswer,
-          j
-        );
-        let respostaRenderizada = document.querySelector(
-          `.alternativa${j} .alternativa`
-        );
-        respostaRenderizada.style.backgroundImage = "url(" + imageAnswer + ")";
-      }
-    }
-    /* const cardsParaBaixo = document.querySelector(".parrot-place");
 
-    arrayComCartas.sort(embaralhador); */
-    /* for (let i = 0; i < dadosExibicao.levels.length; i++) {
-      console.log(
-        `No nivel ${i + 1} o titulo eh : ${dadosExibicao.levels[i].title} `
+        respostasRenderizadasArray.push(
+          RenderizarQuizExibicaoRespostas(
+            titleAnswer,
+            isCorrectAnswer,
+
+            imageAnswer
+          )
+        );
+      }
+      let containerAlternativas = document.querySelectorAll(
+        ".container-alternativas"
       );
-      console.log(
-        ` No nivel ${i + 1} temos a imagem : ${dadosExibicao.levels[i].image}`
-      );
-      console.log(
-        ` No nivel ${i + 1} temos o texto : ${dadosExibicao.levels[i].text}`
-      );
-      console.log(
-        ` No nivel ${i + 1} temos o minValue : ${
-          dadosExibicao.levels[i].minValue
-        }`
-      );
-    } */
+      respostasRenderizadasArray.sort(embaralhador);
+      for (let j = 0; j < respostasRenderizadasArray.length; j++) {
+        containerAlternativas[i].innerHTML += respostasRenderizadasArray[j];
+      }
+
+      respostasRenderizadasArray = [];
+    }
   });
 }
+
 function RenderizarQuizExibicaoGeral(title, imagem) {
   return `<div class="banner">
-            <<img src="${imagem}" alt="error">
+            <img src="${imagem}" alt="error">
             <div id="titleSpan">${title}</div>
-          </div>`;
+          </div>
+          `;
 }
 function RenderizarQuizExibicaoPergunta(title) {
   return ` 
@@ -126,12 +130,12 @@ function RenderizarQuizExibicaoPergunta(title) {
           <div class="container-alternativas">
           `;
 }
-function RenderizarQuizExibicaoRespostas(texto, isCorret, j) {
+function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
   return `
-            <div class="alternativa${j}">
-              <div class="alternativa ${isCorret}"></div>
-              <span>${texto}</span>
-            </div>`;
+            <div class="alternativa ${isCorrect}" onClick="addSelecionado(this)">
+              <img src="${imagem}" alt = "error"/>
+            </div>
+            <span>${texto}</span>`;
 }
 
 function RenderizarQuizResultado(nivel, imagem, texto) {
@@ -145,70 +149,22 @@ function RenderizarQuizResultado(nivel, imagem, texto) {
           </div>`;
 }
 
-/* promisse.then((resposta) => {
-  
-
-
-    for (let i = 0; i < resposta.data.length; i++) {
-        console.log("o id eh :" + resposta.data[i].id);
-
-
-    console.log("o titulo do quizz eh" + resposta.data[i].title);
-    console.log("o link da imagem eh" + resposta.data[i].image);
-    console.log("as perguntas do quizz sao :");
-    console.log(resposta.data[i].questions);
-    console.log("o level eh :");
-    console.log(resposta.data[i].levels);
-
-
-
-        for (let x = 0; x < resposta.data[i].questions.length; x++) {
-            console.log(
-                `o titulo da pergunta ${x + 1} eh :  ${
-          resposta.data[i].questions[x].title
-        }`
-            );
-            console.log(
-                `a cor da pergunta ${x + 1} eh :  ${
-          resposta.data[i].questions[x].color
-        }`
-            );
-            for (let n = 0; n < resposta.data[i].questions[x].answers.length; n++) {
-                console.log(
-                    `O texto da resposta ${n + 1} da pergunta ${x + 1} eh :
-            ${resposta.data[i].questions[x].answers[n].text}`
-                );
-                console.log(
-                    `A image, da resposta ${n + 1} da pergunta ${x + 1} eh : 
-            ${resposta.data[i].questions[x].answers[n].image}`
-                );
-                console.log(
-                    `O isCorrectAnswer da resposta ${n + 1} da pergunta ${x + 1} eh : 
-            ${resposta.data[i].questions[x].answers[n].isCorrectAnswer}`
-                );
-            }
-        }
-        for (let x = 0; x < resposta.data[i].levels.length; x++) {
-            console.log(
-                `No nivel ${x + 1} o titulo eh : ${resposta.data[i].levels[x].title} `
-            );
-            console.log(
-                ` No nivel ${x + 1} temos a imagem : ${
-          resposta.data[i].levels[x].image
-        }`
-            );
-            console.log(
-                ` No nivel ${x + 1} temos o texto : ${resposta.data[i].levels[x].text}`
-            );
-            console.log(
-                ` No nivel ${x + 1} temos o minValue : ${
-          resposta.data[i].levels[x].minValue
-        }`
-            );
-        }
+function addSelecionado(respostaquiz) {
+  respostaquiz.classList.add("selecionado");
+  respostaquiz.removeAttribute("onClick");
+  let containerThis = respostaquiz.parentElement;
+  console.log(containerThis);
+  console.log(containerThis.nodeName);
+  console.log(containerThis.length);
+  for (let i = 0; i < containerThis.length; i++) {
+    let respostaNaoSelecionada = document.querySelector(".alternativa");
+    if (respostaNaoSelecionada.classList.contains("selecionada")) {
+      respostaNaoSelecionada.classList.add("branco");
+      respostaNaoSelecionada.removeAttribute("onClick");
     }
-});
- */
+  }
+}
+
 //Funcoes de validacao
 function validacaoInfBasicaTitulo(input) {
   if (input.value.length < 20 || input.value.length > 65) {
