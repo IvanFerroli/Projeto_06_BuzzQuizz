@@ -14,28 +14,31 @@ const comecarApp = () => {
       let titulo = dados[i].title;
       let imagem = dados[i].image;
 
-      lugarQuiz.innerHTML += RenderizarQuiz(id, titulo);
-      let urlImage = document.querySelector(`.id${id}`);
-      urlImage.style.backgroundImage = "url(" + imagem + ")";
+      lugarQuiz.innerHTML += RenderizarQuiz(id, titulo, imagem);
+      /* let urlImage = document.querySelector(`.id${id}`);
+      urlImage.style.backgroundImage = "url(" + imagem + ")"; */
     }
   });
 };
 comecarApp();
 
-function RenderizarQuiz(id, titulo) {
+function RenderizarQuiz(id, titulo, imagem) {
   return `
       <div class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
+        <img src="${imagem}" alt="error">
         <div id="insideTextSpan">${titulo}</div>
       </div>`;
 }
 function mudarTelaQuizz(quiz) {
   let idSelecionadoStr = quiz.className;
-  console.log(idSelecionadoStr);
+
   idSelecionadoStr = quiz.className.replace(" ", "");
-  console.log(idSelecionadoStr);
+
   let idSelecionado = idSelecionadoStr.replace("quiz-contentid", "");
+  console.log(idSelecionado);
 
   lugarQuiz.innerHTML = "";
+
   let fechandoPrimeiraTela = document.querySelector(".corpo-app");
   fechandoPrimeiraTela.classList.add("escondido");
   let segundaTela = document.querySelector(".exibicao-quiz");
@@ -45,49 +48,101 @@ function mudarTelaQuizz(quiz) {
     `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idSelecionado}`
   );
   requisicaoGetQuizzID.then((resposta) => {
-    console.log(resposta.data.title);
-    console.log(resposta.data.image);
-    for (let i = 0; i < resposta.data.questions.length; i++) {
-      console.log(
-        `o titulo da pergunta ${i + 1} eh :  ${
-          resposta.data.questions[i].title
-        }`
+    //transformando a resposta em uma variavel para utilizar posteriormente
+    let dadosExibicao = resposta.data;
+    //titulo e imagem do quiz
+    let title = dadosExibicao.title;
+    let imagem = dadosExibicao.image;
+
+    //local para deploy do quiz
+    const corpoApp2 = document.querySelector(".corpo-app-tela2");
+
+    corpoApp2.innerHTML += RenderizarQuizExibicaoGeral(title, imagem);
+
+    for (let i = 0; i < dadosExibicao.questions.length; i++) {
+      let titleQuestion = dadosExibicao.questions[i].title;
+      let colorQuestion = dadosExibicao.questions[i].color;
+      let cardPergunta = document.querySelector(".card-pergunta");
+      console.log(cardPergunta);
+
+      cardPergunta.innerHTML += RenderizarQuizExibicaoPergunta(
+        titleQuestion,
+        colorQuestion
       );
-      console.log(
-        `a cor da pergunta ${i + 1} eh :  ${resposta.data.questions[i].color}`
-      );
-      for (let j = 0; j < resposta.data.questions[i].answers.length; j++) {
-        console.log(
-          `O texto da resposta ${j + 1} da pergunta ${i + 1} eh :
-            ${resposta.data.questions[i].answers[j].text}`
+      let trocaCor = (color) => {
+        let caixaPergunta = document.querySelector(".caixa-de-pergunta");
+        caixaPergunta.style.backgroundColor = color;
+      };
+      trocaCor(colorQuestion);
+      for (let j = 0; j < dadosExibicao.questions[i].answers.length; j++) {
+        let titleAnswer = dadosExibicao.questions[i].answers[j].title;
+        let imageAnswer = dadosExibicao.questions[i].answers[j].image;
+        let isCorrectAnswer =
+          dadosExibicao.questions[i].answers[j].isCorrectAnswer;
+        let containerAlternativas = document.querySelector(
+          ".container-alternativas"
         );
-        console.log(
-          `A image, da resposta ${j + 1} da pergunta ${i + 1} eh : 
-            ${resposta.data.questions[i].answers[j].image}`
+        containerAlternativas.innerHTML += RenderizarQuizExibicaoRespostas(
+          titleAnswer,
+          isCorrectAnswer,
+          j
         );
-        console.log(
-          `O isCorrectAnswer da resposta ${j + 1} da pergunta ${i + 1} eh : 
-            ${resposta.data.questions[i].answers[j].isCorrectAnswer}`
+        let respostaRenderizada = document.querySelector(
+          `.alternativa${j} .alternativa`
         );
+        respostaRenderizada.style.backgroundImage = "url(" + imageAnswer + ")";
       }
     }
-    for (let i = 0; i < resposta.data.levels.length; i++) {
+    /* const cardsParaBaixo = document.querySelector(".parrot-place");
+
+    arrayComCartas.sort(embaralhador); */
+    /* for (let i = 0; i < dadosExibicao.levels.length; i++) {
       console.log(
-        `No nivel ${i + 1} o titulo eh : ${resposta.data.levels[i].title} `
+        `No nivel ${i + 1} o titulo eh : ${dadosExibicao.levels[i].title} `
       );
       console.log(
-        ` No nivel ${i + 1} temos a imagem : ${resposta.data.levels[i].image}`
+        ` No nivel ${i + 1} temos a imagem : ${dadosExibicao.levels[i].image}`
       );
       console.log(
-        ` No nivel ${i + 1} temos o texto : ${resposta.data.levels[i].text}`
+        ` No nivel ${i + 1} temos o texto : ${dadosExibicao.levels[i].text}`
       );
       console.log(
         ` No nivel ${i + 1} temos o minValue : ${
-          resposta.data.levels[i].minValue
+          dadosExibicao.levels[i].minValue
         }`
       );
-    }
+    } */
   });
+}
+function RenderizarQuizExibicaoGeral(title, imagem) {
+  return `<div class="banner">
+            <<img src="${imagem}" alt="error">
+            <div id="titleSpan">${title}</div>
+          </div>`;
+}
+function RenderizarQuizExibicaoPergunta(title) {
+  return ` 
+          <div class="caixa-de-pergunta">${title}</div>
+          <div class="container-alternativas">
+          `;
+}
+function RenderizarQuizExibicaoRespostas(texto, isCorret, j) {
+  return `
+            <div class="alternativa${j}">
+              <div class="alternativa ${isCorret}"></div>
+              <span>${texto}</span>
+            </div>`;
+}
+
+function RenderizarQuizResultado(nivel, imagem, texto) {
+  //let urlImagemResultado = document.querySelector("imagem-resultado")
+  return `<div class="nivel-resultado">
+            ${nivel}
+          </div>
+          <div class="imagem-resultado"></div>
+          <div class="texto-resultado">
+            ${texto}
+          </div>`;
 }
 
 /* promisse.then((resposta) => {
