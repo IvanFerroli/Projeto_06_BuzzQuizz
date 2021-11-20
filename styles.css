@@ -92,7 +92,7 @@ header span {
 
 .quiz-usuario-sem-quiz button {
   height: 40px;
-  width: 40%px;
+  width: 40%;
   bottom: 35px;
   border-radius: 50px;
   font-family: Roboto;
@@ -280,4 +280,59 @@ header span {
   text-align: left;
   margin-top: 9px;
   margin-bottom: 15px;
+}
+.container-botoes-tela2{
+  display: flex;
+  height: 196px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: greenyellow;
+
+
+}
+.botoes-tela2{
+ 
+  
+  
+}
+#reiniciar-quiz{
+  height: 40px;
+  width: 100%;
+  top: 35px;
+  bottom: 35px;
+  left: 20,5%;
+  right: 20,5%;
+
+  border-radius: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #FFF5F4;
+  background-color: #ec362d;
+
+}
+#voltar-home{
+  height: 40px;
+  width: 100%;
+  top: 35px;
+  bottom: 35px;
+  left: 20,5%;
+  right: 20,5%;
+  border-radius: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #818181;
+  background-color: #E5E5E5; 
 }
