@@ -118,7 +118,7 @@ function mudarTelaQuizz(quiz) {
 }
 
 function RenderizarQuizExibicaoGeral(title, imagem) {
-  return `<div class="banner">
+  return `<div class="banner gradiente">
             <img src="${imagem}" alt="error">
             <span>${title}</span>
           </div>

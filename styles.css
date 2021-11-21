@@ -97,9 +97,9 @@ main{}
   font-weight: 400;
   color: #b9b9b9;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: block;
+  width: 75%;
+  word-wrap:break-word;
 }
 
 .quiz-usuario-sem-quiz button {
