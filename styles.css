@@ -34,15 +34,15 @@ main{}
   margin-top: 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  background-color: #e5e5e5;
+  background-color: #E5E5E5;
 }
 .quiz-usuario {
   width: 90%;
   height: 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: rgb(255, 65, 217);
 }
@@ -122,7 +122,7 @@ main{}
   height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   margin-top: 69px;
 }
 
@@ -144,19 +144,18 @@ main{}
 .quiz-content {
   position: relative;
   height: 181px;
-  width: 90%;
+  width: 100%;
   border-radius: 5px;
   background-color: #ffffff;
   margin-bottom: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
 }
 
 .quiz-content img{
   position: absolute;
   width: 100%;
   height: 100%;
-  /* left: 18px;
-  top: 353px; */
-  /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(.png); */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
   border-radius: 5px;
 }
 
@@ -246,7 +245,7 @@ main{}
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  background-color: #e5e5e5;
   position: relative;
 }
 .caixa-de-pergunta span{
