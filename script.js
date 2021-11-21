@@ -33,7 +33,7 @@ function RenderizarQuiz(id, titulo, imagem) {
   return `
       <div class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
         <img src="${imagem}" alt="error">
-        <div id="insideTextSpan">${titulo}</div>
+        <span>${titulo}</span>
       </div>`;
 }
 function mudarTelaQuizz(quiz) {
