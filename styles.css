@@ -296,6 +296,7 @@ header span {
 }
 
 .botoes-tela2 {
+  background-color: red;
 }
 #reiniciar-quiz {
   height: 40px;
