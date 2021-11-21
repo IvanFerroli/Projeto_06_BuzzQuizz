@@ -24,9 +24,10 @@ comecarApp();
 
 function RenderizarQuiz(id, titulo) {
   return `
-      <div class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
-        <div id="insideTextSpan">${titulo}</div>
-      </div>`;
+  <div class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
+  <img src="${imagem}" alt="error">
+  <div id="insideTextSpan">${titulo}</div>
+</div>`;
 }
 function mudarTelaQuizz(quiz) {
   let idSelecionadoStr = quiz.className;
