@@ -31,7 +31,7 @@ comecarApp();
 
 function RenderizarQuiz(id, titulo, imagem) {
   return `
-      <div class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
+      <div class="quiz-content gradiente id${id}" onclick="mudarTelaQuizz(this)">
         <img src="${imagem}" alt="error">
         <span>${titulo}</span>
       </div>`;
@@ -130,6 +130,16 @@ function RenderizarQuizExibicaoPergunta(title) {
             <span>${title}</span>
           </div>
           <div class="container-alternativas"></div>
+          // <div class="caixa-de-pergunta">
+          //   <span>${title}</span>
+          // </div>
+          // <div class="container-alternativas">
+          //   <div class="grid-container">
+          //     <div class="grid-item">
+          //       <span>Sapo gordo</span>
+          //     </div>  . 
+          //   </div>
+          // </div>
           `;
 }
 function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {

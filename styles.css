@@ -152,11 +152,28 @@ main{}
 }
 
 .quiz-content img{
-  position: absolute;
+  position: relative;
+
+  display:block;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
   border-radius: 5px;
+
+}
+
+.gradiente{
+  position:relative;
+  display:inline-block;
+}
+
+.gradiente::after{
+  content:'';
+  position:absolute;
+  left:0; top:0;
+  width:100%; height:100%;
+  display:inline-block;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
+
 }
 
 .quiz-content span {
@@ -176,7 +193,9 @@ main{}
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  z-index: 5;
 }
+
 .corpo-app-tela2 {
   width: 100%;
   height: auto;
@@ -266,7 +285,7 @@ main{}
   
 
 .container-alternativas {
-  width: 90%;
+  width: 50%;
   height: 290px;
   display: flex;
   flex-wrap: wrap;
