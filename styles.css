@@ -21,6 +21,12 @@ header span {
   font-style: normal;
   font-weight: 700;
   color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+main {
 }
 
 .corpo-app {
@@ -39,6 +45,7 @@ header span {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: rgb(255, 65, 217);
 }
 
 .quiz-usuario span {
@@ -51,6 +58,9 @@ header span {
   line-height: 23px;
   letter-spacing: 0em;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .quiz-usuario button {
@@ -88,6 +98,9 @@ header span {
   font-weight: 400;
   color: #b9b9b9;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .quiz-usuario-sem-quiz button {
@@ -124,28 +137,31 @@ header span {
   line-height: 23px;
   letter-spacing: 0em;
   text-align: left;
+  color: #000000;
   margin-bottom: 14px;
+  text-overflow: ellipsis;
 }
 
 .quiz-content {
-  height: 181px;
-  width: 100%;
-  border-radius: 5px;
-  background-image: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 0.5) 64.58%,
-    #000000 100%
-  );
-  background-image: url();
-  background-position: center;
   position: relative;
-  background-repeat: no-repeat;
-  background-size: cover;
+  height: 181px;
+  width: 90%;
+  border-radius: 5px;
+  background-color: #ffffff;
   margin-bottom: 14px;
 }
 
-.quiz-content #insideTextSpan {
+.quiz-content img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* left: 18px;
+  top: 353px; */
+  /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(.png); */
+  border-radius: 5px;
+}
+
+.quiz-content span {
   height: auto;
   position: absolute;
   top: 120px;
@@ -159,27 +175,46 @@ header span {
   font-style: normal;
   font-weight: 400;
   color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .corpo-app-tela2 {
   width: 100%;
-  height: 100%;
+  height: auto;
   margin-top: 69px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 }
 .banner {
   width: 100%;
-  height: 150px;
+  height: 142px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
+  position: relative;
 }
 .banner img {
-  margin-top: 220px;
   width: 100%;
-  height: 220px;
-  margin-bottom: 150px;
+  height: 100%;
+}
+
+.banner span {
+  position: absolute;
+  top: auto;
+  left: auto;
+  font-family: Roboto;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+  width: 80%;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #titleSpan {
   font-family: Roboto;
@@ -189,8 +224,10 @@ header span {
   text-align: center;
   width: 80%;
   color: #ffffff;
+  text-overflow: ellipsis;
 }
 .card-pergunta {
+  position: relative;
   height: auto;
   width: 100%;
   background-color: #ffffff;
@@ -202,12 +239,30 @@ header span {
   margin-top: 50px;
 }
 .caixa-de-pergunta {
+  position: absolute;
+  top: 13px;
   width: 90%;
   height: 89px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: red;
+  position: relative;
+}
+.caixa-de-pergunta span {
+  position: absolute;
+  top: auto;
+  left: auto;
+  font-family: Roboto;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+  width: 80%;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .container-alternativas {
@@ -216,14 +271,16 @@ header span {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  background-color: blue;
 }
 .alternativa {
   height: 113px;
   width: 100%;
+  background-color: blueviolet;
 }
 
 .alternativa img {
-  height: 135px;
+  height: 100%;
   width: 49%;
 }
 
@@ -234,6 +291,9 @@ header span {
   font-weight: 700;
 
   color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-resultado {
@@ -292,11 +352,11 @@ header span {
   width: 100%;
   justify-content: center;
   align-items: center;
-  background-color: greenyellow;
+  background-color: #e5e5e5;
 }
 
 .botoes-tela2 {
-  background-color: red;
+  background-color: #e5e5e5;
 }
 #reiniciar-quiz {
   height: 40px;
@@ -326,6 +386,7 @@ header span {
   left: 20, 5%;
   right: 20, 5%;
   border-radius: 15px;
+  border-color: #e5e5e5;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -336,4 +397,26 @@ header span {
   text-align: center;
   color: #818181;
   background-color: #e5e5e5;
+}
+.exibicao-quiz {
+  height: auto;
+  background-color: #e5e5e5;
+}
+.grid-container {
+  height: 304px;
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: #2196f3;
+}
+.grid-item {
+  position: relative;
+  height: 152px;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+.grid-item span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

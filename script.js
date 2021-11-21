@@ -33,7 +33,7 @@ function RenderizarQuiz(id, titulo, imagem) {
   return `
       <div class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
         <img src="${imagem}" alt="error">
-        <div id="insideTextSpan">${titulo}</div>
+        <span>${titulo}</span>
       </div>`;
 }
 function mudarTelaQuizz(quiz) {
@@ -120,14 +120,16 @@ function mudarTelaQuizz(quiz) {
 function RenderizarQuizExibicaoGeral(title, imagem) {
   return `<div class="banner">
             <img src="${imagem}" alt="error">
-            <div id="titleSpan">${title}</div>
+            <span>${title}</span>
           </div>
           `;
 }
 function RenderizarQuizExibicaoPergunta(title) {
   return ` 
-          <div class="caixa-de-pergunta">${title}</div>
-          <div class="container-alternativas">
+          <div class="caixa-de-pergunta">
+            <span>${title}</span>
+          </div>
+          <div class="container-alternativas"></div>
           `;
 }
 function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
