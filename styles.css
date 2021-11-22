@@ -163,12 +163,12 @@ header span {
   border-radius: 5px;
 }
 
-.gradiente {
+#gradiente {
   position: relative;
   display: inline-block;
-}
+  }
 
-.gradiente::after {
+#gradiente::after {
   content: "";
   position: absolute;
   left: 0;
@@ -201,7 +201,7 @@ header span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  z-index: 5;
+  z-index: 3;
 }
 
 .corpo-app-tela2 {
