@@ -136,8 +136,9 @@ function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
   return `
             <div class="alternativa ${isCorrect}" onClick="addSelecionado(this)">
               <img src="${imagem}" alt = "error"/>
+              <span>${texto}</span>
             </div>
-            <span>${texto}</span>`;
+            `;
 }
 
 function RenderizarQuizResultado(nivel, imagem, texto) {
