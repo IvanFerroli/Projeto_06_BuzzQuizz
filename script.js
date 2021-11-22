@@ -130,16 +130,6 @@ function RenderizarQuizExibicaoPergunta(title) {
             <span>${title}</span>
           </div>
           <div class="container-alternativas"></div>
-          // <div class="caixa-de-pergunta">
-          //   <span>${title}</span>
-          // </div>
-          // <div class="container-alternativas">
-          //   <div class="grid-container">
-          //     <div class="grid-item">
-          //       <span>Sapo gordo</span>
-          //     </div>  . 
-          //   </div>
-          // </div>
           `;
 }
 function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
