@@ -28,22 +28,24 @@
       </div>
       <div class="quiz-usuario-sem-quiz">
         <span>Você não criou nenhum quizz ainda :(</span>
-        <button>Criar Quizz</button>
+        <button onclick="abreTerceiraTela()">Criar Quizz</button>
       </div>
       <div class="quiz-servidor">
         <div id="titleSpan">Todos os Quizzes</div>
       </div>
     </main>
-    <footer class="exibicao-quiz escondido">
+    <section class="exibicao-quiz escondido">
       <div class="corpo-app-tela2"></div>
-      <div class="container-botoes-tela2">
-            <div class="botoes-tela2">
-              <button id="reiniciar-quiz">Reiniciar Quizz</button>
-              <button id="voltar-home">Voltar pra home</button>
-            </div>
-          </div>
+        <div class="container-botoes-tela2">
+              <div class="botoes-tela2">
+                <button id="reiniciar-quiz">Reiniciar Quizz</button>
+                <button id="voltar-home">Voltar pra home</button>
+              </div>
         </div>
-      </footer>
+      </div>
+    </section>
+    <section class="criacao-quizz escondido">  
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
   </body>

@@ -1,6 +1,9 @@
 let requisicaoGetQuizz;
 let requisicaoGetQuizzID;
 const lugarQuiz = document.querySelector(".quiz-servidor");
+let primeiraTela = document.querySelector(".corpo-app");
+let segundaTela = document.querySelector(".exibicao-quiz");
+let terceiraTela1 = document.querySelector(".criacao-quizz");
 let respostasRenderizadasArray = [];
 function embaralhador() {
   return Math.random() - 0.5;
@@ -46,9 +49,8 @@ function mudarTelaQuizz(quiz) {
 
   lugarQuiz.innerHTML = "";
 
-  let fechandoPrimeiraTela = document.querySelector(".corpo-app");
   fechandoPrimeiraTela.classList.add("escondido");
-  let segundaTela = document.querySelector(".exibicao-quiz");
+
   segundaTela.classList.remove("escondido");
 
   requisicaoGetQuizzID = axios.get(
@@ -79,16 +81,9 @@ function mudarTelaQuizz(quiz) {
 
       cardPergunta[i].innerHTML +=
         RenderizarQuizExibicaoPergunta(titleQuestion);
+      const caixaPergunta = document.querySelectorAll(".caixa-de-pergunta");
+      caixaPergunta[i].style.backgroundColor = colorQuestion;
 
-      /* let trocaCor = (color, i) => {
-        const caixaPergunta = document.querySelectorAll(".caixa-de-pergunta");
-        caixaPergunta[i].style.backgroundColor = color;
-        console.log(caixaPergunta);
-
-        console.log(color, i);
-        caixaPergunta.style.backgroundColor = color;
-      };
-      trocaCor(colorQuestion, i); */
       for (let j = 0; j < dadosExibicao.questions[i].answers.length; j++) {
         let titleAnswer = dadosExibicao.questions[i].answers[j].text;
         let imageAnswer = dadosExibicao.questions[i].answers[j].image;
@@ -129,18 +124,17 @@ function RenderizarQuizExibicaoPergunta(title) {
           <div class="caixa-de-pergunta">
             <span>${title}</span>
           </div>
-          <div class="container-alternativas"></div>
-          // <div class="caixa-de-pergunta">
-          //   <span>${title}</span>
-          // </div>
-          // <div class="container-alternativas">
-          //   <div class="grid-container">
-          //     <div class="grid-item">
-          //       <span>Sapo gordo</span>
-          //     </div>  . 
-          //   </div>
-          // </div>
-          `;
+          <div class="container-alternativas"></div>`;
+  // <div class="caixa-de-pergunta">
+  //   <span>${title}</span>
+  // </div>;
+  // <div class="container-alternativas">
+  //   <div class="grid-container">
+  //     <div class="grid-item">
+  //       <span>Sapo gordo</span>
+  //     </div>  .
+  //   </div>
+  // </div>
 }
 function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
   return `
@@ -156,7 +150,7 @@ function RenderizarQuizResultado(nivel, imagem, texto) {
   return `<div class="nivel-resultado">
             ${nivel}
           </div>
-          <div class="imagem-resultado"></div>
+          <img src="${imagem}" alt = "erro"/>
           <div class="texto-resultado">
             ${texto}
           </div>`;
@@ -165,17 +159,21 @@ function RenderizarQuizResultado(nivel, imagem, texto) {
 function addSelecionado(respostaquiz) {
   respostaquiz.classList.add("selecionado");
   respostaquiz.removeAttribute("onClick");
-  let containerThis = respostaquiz.parentElement;
-  console.log(containerThis);
-  console.log(containerThis.nodeName);
+  const containerThis = respostaquiz.parentElement;
+  console.dir(containerThis);
   console.log(containerThis.length);
+
   for (let i = 0; i < containerThis.length; i++) {
     let respostaNaoSelecionada = document.querySelector(".alternativa");
-    if (respostaNaoSelecionada.classList.contains("selecionada")) {
+    if (respostaNaoSelecionada.className.contains("selecionada")) {
       respostaNaoSelecionada.classList.add("branco");
       respostaNaoSelecionada.removeAttribute("onClick");
+    } else {
+      continue;
     }
   }
+  /* const elementoCard = containerThis.parentElement;
+  const proximoCard = elementoCard.nextSibling.scrollIntoView(); */
 }
 
 //Funcoes de validacao
@@ -267,4 +265,9 @@ function validacaoInfNiveisDescri(input) {
     return true;
   }
   return false;
+}
+
+function abreTerceiraTela() {
+  primeiraTela.classList.add("escondido");
+  terceiraTela1.classList.remove("escondido");
 }
