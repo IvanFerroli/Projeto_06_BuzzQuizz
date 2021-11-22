@@ -233,6 +233,7 @@ main{}
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  z-index: 3;
 }
 #titleSpan {
   font-family: Roboto;

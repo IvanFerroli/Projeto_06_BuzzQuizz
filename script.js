@@ -31,8 +31,8 @@ comecarApp();
 
 function RenderizarQuiz(id, titulo, imagem) {
   return `
-      <div class="quiz-content gradiente id${id}" onclick="mudarTelaQuizz(this)">
-        <img src="${imagem}" alt="error">
+      <div class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
+        <img class="gradiente"src="${imagem}" alt="error">
         <span>${titulo}</span>
       </div>`;
 }
