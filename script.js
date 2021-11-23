@@ -167,13 +167,27 @@ function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
               `;
 }
 
+// function RenderizarQuizResultado(nivel, imagem, texto) {
+//   return `<div class="nivel-resultado">
+//             <span>${nivel}</span>
+//           </div>
+//           <div classe="container-resultado">
+//             <div id="imgResultado">
+//               <img src="${imagem}" alt = "erro"/>
+//             </div>
+//             <div id="textoResultado">
+//               ${texto}
+//             </div>
+//           </div>`;
+// }
+
 function RenderizarQuizResultado(nivel, imagem, texto) {
   return `<div class="nivel-resultado">
             <span>${nivel}</span>
           </div>
-          <img src="${imagem}" alt = "erro"/>
-          <div class="texto-resultado">
-            ${texto}
+          <div classe="container-resultado">
+              <img id="imgResultado" src="${imagem}" alt = "erro"/>
+              <span id="textoResultado" >${texto}</span>
           </div>`;
 }
 
