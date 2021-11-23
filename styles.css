@@ -371,9 +371,20 @@ header span {
   text-align: left;
   margin-top: 9px;
   margin-bottom: 15px;
+
+  display: flex;
+  height:min-content;
+  width: 91%;
+  justify-content: start;
+  align-items: center;
+  overflow: hidden;
+  white-space: wrap;
+  max-width: 100%;
+  background-color: #ffffff;
 }
 
 .container-botoes-tela2 {
+  bottom: 66px;
   display: flex;
   height: 196px;
   width: 100%;
@@ -466,6 +477,9 @@ header span {
   }
   
   #span-topo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 37px;
     margin-bottom: 29px;
@@ -514,13 +528,14 @@ header span {
 
 #span{
   display: flex;
-  height: 27px;
-  width: 100%;
+  height:min-content;
+  width: 91%;
   justify-content: start;
   align-items: center;
   overflow: hidden;
   white-space: wrap;
   max-width: 100%;
+  background-color: #ffffff;
   
   }
 
