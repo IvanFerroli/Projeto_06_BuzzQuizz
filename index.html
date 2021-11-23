@@ -21,7 +21,7 @@
     <main class="corpo-app">
       <div class="quiz-usuario escondido">
         <span>Seus Quizzes</span>
-        <button class="criar-quizz" data-identifier="create-quizz">
+        <button class="seus-quizzes" onclick='esconderUsuarioSemQuiz' data-identifier="create-quizz">
           <img src="./assets/Rectangle 33.png" alt="Erro" />
           <img id="plus" src="./assets/Vector1.png" alt="Erro" />
         </button>
@@ -50,11 +50,12 @@
       <div class="corpo-app-tela3">
         <span id="span-topo">Comece pelo começo</span>
         <div class="dados-do-quiz">
-          <input type="text" name="input" value="Título do seu quizz">
-          <input type="text" name="input" value="URL da imagem do quizz">
-          <input type="text" name="input" value="Quantidade de perguntas do quizz">
-          <input type="text" name="input" value="Quantidade de níveis do quizz">
+          <input id="inputInfoBasicaDoQuiz" type="text" name="input" placeholder="Título do seu quizz">
+          <input id="inputInfoBasicaDoQuiz" name="input" placeholder="URL da imagem do quizz">
+          <input id="inputInfoBasicaDoQuiz" name="input" placeholder="Quantidade de perguntas do quizz">
+          <input id="inputInfoBasicaDoQuiz" name="input" placeholder="Quantidade de níveis do quizz">
         </div>
+        <button id="prosseguirCriarPerguntas">Prosseguir pra criar perguntas</button>
       </div>  
     </section>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -160,14 +160,16 @@ function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
   return `
             <div class="alternativa ${isCorrect}" onclick="addSelecionado(this)" data-identifier="answer">
               <img src="${imagem}" alt = "error"/>
-              <span>${texto}</span>
-            </div>
-            `;
+              <div id="span">
+                <span>${texto}</span>
+              </div>
+              </div>
+              `;
 }
 
 function RenderizarQuizResultado(nivel, imagem, texto) {
   return `<div class="nivel-resultado">
-            ${nivel}
+            <span>${nivel}</span>
           </div>
           <img src="${imagem}" alt = "erro"/>
           <div class="texto-resultado">
