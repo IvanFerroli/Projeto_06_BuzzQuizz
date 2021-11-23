@@ -6,7 +6,7 @@ let primeiraTela = document.querySelector(".corpo-app");
 let segundaTela = document.querySelector(".exibicao-quiz");
 let corpoApp2 = document.querySelector(".corpo-app-tela2");
 let containerBotoesTela2;
-let cardResultado = document.querySelector(".card-resultado");
+let cardResultado;
 let terceiraTela1 = document.querySelector(".criacao-quizz");
 let todasPerguntas;
 let respostasRenderizadasArray = [];
@@ -14,6 +14,8 @@ let numeroRespostasSelecionadas = 0;
 let numeroRespostaCertas = 0;
 let porcentagemAcertos;
 let resultadosPossiveisArray = [];
+let resultadosPossiveisArrayDiv = [];
+let nivelARenderizar;
 function embaralhador() {
   return Math.random() - 0.5;
 }
@@ -117,12 +119,18 @@ function mudarTelaQuizz(quiz) {
 
       respostasRenderizadasArray = [];
     }
-    for (let j = 0; i < dadosExibicao.levels.length; j++) {
-      let tituloNiveis = dadosExibicao.levels[i].title;
-      let imagemNiveis = dadosExibicao.levels[i].image;
-      let textoNiveis = dadosExibicao.levels[i].text;
-      let minValueNiveis = dadosExibicao.levels[i].minValue;
-      resultadosPossiveisArray.push(
+    for (let j = 0; j < dadosExibicao.levels.length; j++) {
+      let tituloNiveis = dadosExibicao.levels[j].title;
+      let imagemNiveis = dadosExibicao.levels[j].image;
+      let textoNiveis = dadosExibicao.levels[j].text;
+      let minValueNiveis = dadosExibicao.levels[j].minValue;
+      resultadosPossiveisArray.push({
+        titulo: tituloNiveis,
+        imagem: imagemNiveis,
+        texto: textoNiveis,
+        minValue: minValueNiveis,
+      });
+      resultadosPossiveisArrayDiv.push(
         RenderizarQuizResultado(
           tituloNiveis,
           imagemNiveis,
@@ -157,8 +165,7 @@ function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
             `;
 }
 
-function RenderizarQuizResultado(nivel, imagem, texto, minValue) {
-  //let urlImagemResultado = document.querySelector("imagem-resultado")
+function RenderizarQuizResultado(nivel, imagem, texto) {
   return `<div class="nivel-resultado">
             ${nivel}
           </div>
@@ -191,7 +198,7 @@ function addSelecionado(respostaquiz) {
 }
 function scrollaProximaPergunta(indexResposta) {
   todasPerguntas = document.querySelectorAll(".card-pergunta");
-  console.log(indexResposta);
+  cardResultado = document.querySelector(".card-resultado");
   if (todasPerguntas[indexResposta] === null) {
     cardResultado.scrollIntoView();
   } else {
@@ -225,15 +232,38 @@ function calculaResultado() {
   let numeroPerguntas = document.querySelectorAll(".card-pergunta");
 
   let calcula = (numeroPerguntas, numeroAcertos) => {
-    let porcentagemAcertos = numeroPerguntas / numeroAcertos;
+    let porcentagemAcertos = (numeroAcertos / numeroPerguntas) * 100;
     porcentagemAcertos = Math.ceil(porcentagemAcertos);
     return porcentagemAcertos;
   };
   porcentagemAcertos = calcula(numeroPerguntas.length, numeroRespostaCertas);
 
-  //Pegar o resultado comparar no array com os objetos e chamar a tela.
-}
+  let comparaResultado = (array, porcentagem) => {
+    for (let i = 0; i < array.length; i++) {
+      if (
+        array[i].minValue < porcentagem &&
+        array[i + 1].minValue > porcentagem
+      ) {
+        return i;
+      } else if (array[i + 1] === null) {
+        return i;
+      } else {
+        continue;
+      }
+    }
 
+    //Pegar o resultado comparar no array com os objetos e chamar a tela.
+  };
+  console.log(resultadosPossiveisArrayDiv);
+  console.log(cardResultado);
+
+  cardResultado.innerHTML = console.log(
+    resultadosPossiveisArrayDiv[
+      comparaResultado(resultadosPossiveisArray, porcentagemAcertos)
+    ]
+  );
+  console.log(cardResultado);
+}
 //Funcoes de validacao
 function validacaoInfBasicaTitulo(input) {
   if (input.value.length < 20 || input.value.length > 65) {
