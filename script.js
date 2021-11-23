@@ -1,14 +1,25 @@
 let requisicaoGetQuizz;
 let requisicaoGetQuizzID;
+let idSelecionado;
 const lugarQuiz = document.querySelector(".quiz-servidor");
 let primeiraTela = document.querySelector(".corpo-app");
 let segundaTela = document.querySelector(".exibicao-quiz");
+let corpoApp2 = document.querySelector(".corpo-app-tela2");
+let containerBotoesTela2;
+let cardResultado;
 let terceiraTela1 = document.querySelector(".criacao-quizz");
+let todasPerguntas;
 let respostasRenderizadasArray = [];
+let numeroRespostasSelecionadas = 0;
+let numeroRespostaCertas = 0;
+let porcentagemAcertos;
+let resultadosPossiveisArray = [];
+let resultadosPossiveisArrayDiv = [];
+let nivelARenderizar;
 function embaralhador() {
   return Math.random() - 0.5;
 }
-let containerAlternativas = document.querySelectorAll(
+const containerAlternativas = document.querySelectorAll(
   ".container-alternativas"
 );
 
@@ -34,7 +45,7 @@ comecarApp();
 
 function RenderizarQuiz(id, titulo, imagem) {
   return `
-      <div id="gradiente" class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
+      <div id="gradiente" class="quiz-content id${id}" onclick="mudarTelaQuizz(this)" data-identifier="quizz-card">
         <img src="${imagem}" alt="error">
         <span>${titulo}</span>
       </div>`;
@@ -44,7 +55,7 @@ function mudarTelaQuizz(quiz) {
 
   idSelecionadoStr = quiz.className.replace(" ", "");
 
-  let idSelecionado = idSelecionadoStr.replace("quiz-contentid", "");
+  idSelecionado = idSelecionadoStr.replace("quiz-contentid", "");
   console.log(idSelecionado);
 
   lugarQuiz.innerHTML = "";
@@ -64,7 +75,6 @@ function mudarTelaQuizz(quiz) {
     let imagem = dadosExibicao.image;
 
     //local para deploy do quiz
-    const corpoApp2 = document.querySelector(".corpo-app-tela2");
 
     corpoApp2.innerHTML += RenderizarQuizExibicaoGeral(title, imagem);
 
@@ -109,6 +119,26 @@ function mudarTelaQuizz(quiz) {
 
       respostasRenderizadasArray = [];
     }
+    for (let j = 0; j < dadosExibicao.levels.length; j++) {
+      let tituloNiveis = dadosExibicao.levels[j].title;
+      let imagemNiveis = dadosExibicao.levels[j].image;
+      let textoNiveis = dadosExibicao.levels[j].text;
+      let minValueNiveis = dadosExibicao.levels[j].minValue;
+      resultadosPossiveisArray.push({
+        titulo: tituloNiveis,
+        imagem: imagemNiveis,
+        texto: textoNiveis,
+        minValue: minValueNiveis,
+      });
+      resultadosPossiveisArrayDiv.push(
+        RenderizarQuizResultado(
+          tituloNiveis,
+          imagemNiveis,
+          textoNiveis,
+          minValueNiveis
+        )
+      );
+    }
   });
 }
 
@@ -121,14 +151,14 @@ function RenderizarQuizExibicaoGeral(title, imagem) {
 }
 function RenderizarQuizExibicaoPergunta(title) {
   return ` 
-          <div class="caixa-de-pergunta">
+          <div class="caixa-de-pergunta" data-identifier="question">
             <span>${title}</span>
           </div>
           <div class="container-alternativas"></div>`;
 }
 function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
   return `
-            <div class="alternativa ${isCorrect}" onClick="addSelecionado(this)">
+            <div class="alternativa ${isCorrect}" onclick="addSelecionado(this)" data-identifier="answer">
               <img src="${imagem}" alt = "error"/>
               <span>${texto}</span>
             </div>
@@ -136,7 +166,6 @@ function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
 }
 
 function RenderizarQuizResultado(nivel, imagem, texto) {
-  //let urlImagemResultado = document.querySelector("imagem-resultado")
   return `<div class="nivel-resultado">
             ${nivel}
           </div>
@@ -148,24 +177,106 @@ function RenderizarQuizResultado(nivel, imagem, texto) {
 
 function addSelecionado(respostaquiz) {
   respostaquiz.classList.add("selecionado");
-  respostaquiz.removeAttribute("onClick");
-  const containerThis = respostaquiz.parentElement;
-  console.dir(containerThis);
-  console.log(containerThis.length);
+  respostaquiz.removeAttribute("onclick");
+  if (respostaquiz.className.includes("true")) {
+    respostaquiz.style.color = "#009C22";
+  } else {
+    respostaquiz.style.color = "#FF4B4B";
+  }
 
-  for (let i = 0; i < containerThis.length; i++) {
-    let respostaNaoSelecionada = document.querySelector(".alternativa");
-    if (respostaNaoSelecionada.className.contains("selecionada")) {
+  numeroRespostasSelecionadas += 1;
+
+  setTimeout(scrollaProximaPergunta, 2000, numeroRespostasSelecionadas);
+
+  checarNumeroPerguntas(numeroRespostasSelecionadas);
+  const containerThis = respostaquiz.parentElement;
+
+  for (let i = 0; i < containerThis.children.length; i++) {
+    respostaNaoSelecionada = containerThis.children[i];
+    if (respostaNaoSelecionada.className.includes("selecionado") === false) {
       respostaNaoSelecionada.classList.add("branco");
-      respostaNaoSelecionada.removeAttribute("onClick");
+      respostaNaoSelecionada.removeAttribute("onclick");
+      if (respostaNaoSelecionada.className.includes("true")) {
+        respostaNaoSelecionada.style.color = "#009C22";
+      } else {
+        respostaNaoSelecionada.style.color = "#FF4B4B";
+      }
     } else {
       continue;
     }
   }
-  /* const elementoCard = containerThis.parentElement;
-  const proximoCard = elementoCard.nextSibling.scrollIntoView(); */
 }
+function scrollaProximaPergunta(indexResposta) {
+  todasPerguntas = document.querySelectorAll(".card-pergunta");
+  cardResultado = document.querySelector(".card-resultado");
+  if (todasPerguntas[indexResposta] === undefined) {
+    cardResultado = document.querySelector(".card-resultado");
+    cardResultado.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
+  } else {
+    todasPerguntas[indexResposta].scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
+  }
+}
+function checarNumeroPerguntas(numeroResposta) {
+  todasPerguntas = document.querySelectorAll(".card-pergunta");
+  let pegarCaixaBotao = document.querySelector(".container-botoes-tela2");
+  let pegarCaixaResultado = document.querySelector(".card-resultado");
+  if (numeroResposta === todasPerguntas.length) {
+    calculaResultado();
 
+    pegarCaixaBotao.classList.remove("escondido");
+
+    pegarCaixaResultado.classList.remove("escondido");
+  }
+  return;
+}
+function calculaResultado() {
+  let pegarTodasRespostasSelecionadas =
+    document.querySelectorAll(".selecionado");
+  for (let i = 0; i < pegarTodasRespostasSelecionadas.length; i++) {
+    if (pegarTodasRespostasSelecionadas[i].className.includes(true)) {
+      numeroRespostaCertas += 1;
+    }
+  }
+  let numeroPerguntas = document.querySelectorAll(".card-pergunta");
+
+  let calcula = (numeroPerguntas, numeroAcertos) => {
+    let porcentagemAcertos = (numeroAcertos / numeroPerguntas) * 100;
+    porcentagemAcertos = Math.ceil(porcentagemAcertos);
+    return porcentagemAcertos;
+  };
+  porcentagemAcertos = calcula(numeroPerguntas.length, numeroRespostaCertas);
+
+  let comparaResultado = (array, porcentagem) => {
+    for (let i = 0; i < array.length; i++) {
+      if (i === array.length - 1) {
+        return i;
+      }
+      if (
+        array[i].minValue < porcentagem &&
+        array[i + 1].minValue > porcentagem
+      ) {
+        return i;
+      } else {
+        continue;
+      }
+    }
+
+    //Pegar o resultado comparar no array com os objetos e chamar a tela.
+  };
+
+  cardResultado = document.querySelector(".card-resultado");
+
+  cardResultado.innerHTML =
+    resultadosPossiveisArrayDiv[
+      comparaResultado(resultadosPossiveisArray, porcentagemAcertos)
+    ];
+}
 //Funcoes de validacao
 function validacaoInfBasicaTitulo(input) {
   if (input.value.length < 20 || input.value.length > 65) {
@@ -260,4 +371,82 @@ function validacaoInfNiveisDescri(input) {
 function abreTerceiraTela() {
   primeiraTela.classList.add("escondido");
   terceiraTela1.classList.remove("escondido");
+}
+
+function voltandoHome() {
+  primeiraTela.classList.remove("escondido");
+  corpoApp2.innerHTML = "";
+  numeroRespostasSelecionadas = 0;
+  segundaTela.classList.add("escondido");
+  comecarApp();
+  containerBotoesTela2 = document.querySelector(".container-botoes-tela2");
+  containerBotoesTela2.classList.add("escondido");
+
+  cardResultado.classList.add("escondido");
+}
+
+function reniciarQuizzExibiciao() {
+  corpoApp2.innerHTML = "";
+  requisicaoGetQuizzID = axios.get(
+    `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idSelecionado}`
+  );
+  requisicaoGetQuizzID.then((resposta) => {
+    //transformando a resposta em uma variavel para utilizar posteriormente
+    let dadosExibicao = resposta.data;
+    //titulo e imagem do quiz
+    let title = dadosExibicao.title;
+    let imagem = dadosExibicao.image;
+
+    //local para deploy do quiz
+
+    corpoApp2.innerHTML += RenderizarQuizExibicaoGeral(title, imagem);
+
+    for (let i = 0; i < dadosExibicao.questions.length; i++) {
+      let titleQuestion = dadosExibicao.questions[i].title;
+      let colorQuestion = dadosExibicao.questions[i].color;
+
+      const geraCardPergunta = () => {
+        return ` <div class="card-pergunta"></div>`;
+      };
+      corpoApp2.innerHTML += geraCardPergunta();
+
+      const cardPergunta = document.querySelectorAll(".card-pergunta");
+
+      cardPergunta[i].innerHTML +=
+        RenderizarQuizExibicaoPergunta(titleQuestion);
+      const caixaPergunta = document.querySelectorAll(".caixa-de-pergunta");
+      caixaPergunta[i].style.backgroundColor = colorQuestion;
+
+      for (let j = 0; j < dadosExibicao.questions[i].answers.length; j++) {
+        let titleAnswer = dadosExibicao.questions[i].answers[j].text;
+        let imageAnswer = dadosExibicao.questions[i].answers[j].image;
+        let isCorrectAnswer =
+          dadosExibicao.questions[i].answers[j].isCorrectAnswer;
+
+        respostasRenderizadasArray.push(
+          RenderizarQuizExibicaoRespostas(
+            titleAnswer,
+            isCorrectAnswer,
+
+            imageAnswer
+          )
+        );
+      }
+      let containerAlternativas = document.querySelectorAll(
+        ".container-alternativas"
+      );
+      respostasRenderizadasArray.sort(embaralhador);
+      for (let j = 0; j < respostasRenderizadasArray.length; j++) {
+        containerAlternativas[i].innerHTML += respostasRenderizadasArray[j];
+      }
+
+      respostasRenderizadasArray = [];
+    }
+  });
+  numeroRespostasSelecionadas = 0;
+  numeroRespostaCertas = 0;
+  containerBotoesTela2 = document.querySelector(".container-botoes-tela2");
+  containerBotoesTela2.classList.add("escondido");
+
+  cardResultado.classList.add("escondido");
 }
