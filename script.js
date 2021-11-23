@@ -49,7 +49,7 @@ function mudarTelaQuizz(quiz) {
 
   lugarQuiz.innerHTML = "";
 
-  fechandoPrimeiraTela.classList.add("escondido");
+  primeiraTela.classList.add("escondido");
 
   segundaTela.classList.remove("escondido");
 

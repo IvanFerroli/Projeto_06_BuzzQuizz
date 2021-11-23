@@ -306,6 +306,7 @@ header span {
   height: 113px;
   width: 47.94%;
   margin-bottom: 12px;
+  background-color: grey;
 }
 
 .alternativa img {
@@ -315,7 +316,10 @@ header span {
 }
 
 .alternativa span{
+  background-color: blueviolet;
+  overflow: hidden;
   white-space: wrap;
+  max-width: 100%;
   }
 
 .container-alternativas span {
@@ -442,7 +446,7 @@ header span {
   grid-template-columns: auto auto;
   background-color: #2196f3;
 }
-.grid-item {
+/* .grid-item {
   position: relative;
   height: 152px;
   width: 100%;
@@ -460,4 +464,24 @@ header span {
   grid-gap: 1rem;
   grid-template-columns:
   repeat(auto-fit, minmax(150px, 1fr));
+  } */
+
+  .corpo-app-tela3{
+    position: relative;
+    margin-top: 69px;
+    background-color: #e5e5e5 ;
+  }
+
+  #span-topo{
+    position: absolute;
+    top: 37px;
+    
+  }
+
+  .dados-do-quiz{
+    position: absolute;
+    top: 66px;
+    height: 256px;
+    width: auto;
+    background-color: #ffffff;
   }
