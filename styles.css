@@ -665,7 +665,7 @@ header span {
         background-color: chartreuse;
       }
 
-      #imgResultado {
+      /* #imgResultado {
         width: 46%; 
         background-color: red;
       }
@@ -673,6 +673,6 @@ header span {
       #textoResultado {
         width: 46%;
         background-color: blue;
-      }
+      } */
     }
     
