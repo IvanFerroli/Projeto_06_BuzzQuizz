@@ -21,22 +21,22 @@
     <main class="corpo-app">
       <div class="quiz-usuario escondido">
         <span>Seus Quizzes</span>
-        <button class="criar-quizz">
+        <button class="criar-quizz" data-identifier="create-quizz">
           <img src="./assets/Rectangle 33.png" alt="Erro" />
           <img id="plus" src="./assets/Vector1.png" alt="Erro" />
         </button>
       </div>
       <div class="quiz-usuario-sem-quiz">
         <span>Você não criou nenhum quizz ainda :(</span>
-        <button onclick="abreTerceiraTela()">Criar Quizz</button>
+        <button onclick="abreTerceiraTela()" data-identifier="create-quizz">Criar Quizz</button>
       </div>
-      <div class="quiz-servidor">
+      <div class="quiz-servidor" data-identifier="general-quizzes">
         <div id="titleSpan">Todos os Quizzes</div>
       </div>
     </main>
     <section class="exibicao-quiz escondido">
       <div class="corpo-app-tela2"></div>
-      <div class="card-resultado escondido">
+      <div class="card-resultado escondido" data-identifier="quizz-result">
       </div>
       <div class="container-botoes-tela2 escondido">
         <div class="botoes-tela2">

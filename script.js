@@ -45,7 +45,7 @@ comecarApp();
 
 function RenderizarQuiz(id, titulo, imagem) {
   return `
-      <div id="gradiente" class="quiz-content id${id}" onclick="mudarTelaQuizz(this)">
+      <div id="gradiente" class="quiz-content id${id}" onclick="mudarTelaQuizz(this)" data-identifier="quizz-card">
         <img src="${imagem}" alt="error">
         <span>${titulo}</span>
       </div>`;
@@ -151,14 +151,14 @@ function RenderizarQuizExibicaoGeral(title, imagem) {
 }
 function RenderizarQuizExibicaoPergunta(title) {
   return ` 
-          <div class="caixa-de-pergunta">
+          <div class="caixa-de-pergunta" data-identifier="question">
             <span>${title}</span>
           </div>
           <div class="container-alternativas"></div>`;
 }
 function RenderizarQuizExibicaoRespostas(texto, isCorrect, imagem) {
   return `
-            <div class="alternativa ${isCorrect}" onclick="addSelecionado(this)">
+            <div class="alternativa ${isCorrect}" onclick="addSelecionado(this)" data-identifier="answer">
               <img src="${imagem}" alt = "error"/>
               <span>${texto}</span>
             </div>
@@ -178,6 +178,11 @@ function RenderizarQuizResultado(nivel, imagem, texto) {
 function addSelecionado(respostaquiz) {
   respostaquiz.classList.add("selecionado");
   respostaquiz.removeAttribute("onclick");
+  if (respostaquiz.className.includes("true")) {
+    respostaquiz.style.color = "#009C22";
+  } else {
+    respostaquiz.style.color = "#FF4B4B";
+  }
 
   numeroRespostasSelecionadas += 1;
 
@@ -191,6 +196,11 @@ function addSelecionado(respostaquiz) {
     if (respostaNaoSelecionada.className.includes("selecionado") === false) {
       respostaNaoSelecionada.classList.add("branco");
       respostaNaoSelecionada.removeAttribute("onclick");
+      if (respostaNaoSelecionada.className.includes("true")) {
+        respostaNaoSelecionada.style.color = "#009C22";
+      } else {
+        respostaNaoSelecionada.style.color = "#FF4B4B";
+      }
     } else {
       continue;
     }
@@ -199,8 +209,12 @@ function addSelecionado(respostaquiz) {
 function scrollaProximaPergunta(indexResposta) {
   todasPerguntas = document.querySelectorAll(".card-pergunta");
   cardResultado = document.querySelector(".card-resultado");
-  if (todasPerguntas[indexResposta] === null) {
-    cardResultado.scrollIntoView();
+  if (todasPerguntas[indexResposta] === undefined) {
+    cardResultado = document.querySelector(".card-resultado");
+    cardResultado.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
   } else {
     todasPerguntas[indexResposta].scrollIntoView({
       block: "start",
@@ -240,12 +254,13 @@ function calculaResultado() {
 
   let comparaResultado = (array, porcentagem) => {
     for (let i = 0; i < array.length; i++) {
+      if (i === array.length - 1) {
+        return i;
+      }
       if (
         array[i].minValue < porcentagem &&
         array[i + 1].minValue > porcentagem
       ) {
-        return i;
-      } else if (array[i + 1] === null) {
         return i;
       } else {
         continue;
@@ -254,15 +269,13 @@ function calculaResultado() {
 
     //Pegar o resultado comparar no array com os objetos e chamar a tela.
   };
-  console.log(resultadosPossiveisArrayDiv);
-  console.log(cardResultado);
 
-  cardResultado.innerHTML = console.log(
+  cardResultado = document.querySelector(".card-resultado");
+
+  cardResultado.innerHTML =
     resultadosPossiveisArrayDiv[
       comparaResultado(resultadosPossiveisArray, porcentagemAcertos)
-    ]
-  );
-  console.log(cardResultado);
+    ];
 }
 //Funcoes de validacao
 function validacaoInfBasicaTitulo(input) {
