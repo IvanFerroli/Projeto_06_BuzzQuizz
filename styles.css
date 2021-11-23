@@ -3,7 +3,7 @@
 }
 
 header {
-  width: 100%;
+  width: 100vw;
   height: 69px;
   background-color: #ec362d;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -156,27 +156,6 @@ header span {
   border-radius: 5px;
 }
 
-#gradiente {
-  position: relative;
-  display: inline-block;
-}
-
-#gradiente::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 0.5) 64.58%,
-    #000000 100%
-  );
-}
-
 .quiz-content span {
   height: auto;
   position: absolute;
@@ -205,14 +184,36 @@ header span {
   justify-content: center;
   flex-direction: column;
 }
-.banner {
+
+#gradiente {
+  position: relative;
+  /* display: inline-block; */
+}
+
+#gradiente::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.5) 64.58%,
+    #000000 100%
+  );
+}
+
+.corpo-app-tela2 .banner {
   width: 100%;
   height: 142px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
-  position: relative;
+  /* position: relative; */
   z-index: 0;
 }
 .banner img {
@@ -221,21 +222,25 @@ header span {
 }
 
 .banner span {
+  width: 100%;
+  height: auto;
   position: absolute;
   top: auto;
-  left: auto;
+  left: 6%;
+  right: 6%;
+  text-align: left;
+  align-items: center;
   font-family: Roboto;
   font-size: 19px;
   font-style: normal;
   font-weight: 400;
-  text-align: center;
-  width: 80%;
   color: #ffffff;
-  white-space: nowrap;
+  white-space: wrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  z-index: 1;
+  z-index: 3;
 }
+
 #titleSpan {
   font-family: Roboto;
   font-size: 19px;
@@ -469,13 +474,15 @@ header span {
   } */
 
   .corpo-app-tela3{
+    display: flex;
+    justify-content: center;
     position: relative;
     margin-top: 69px;
-    height: 100%;
+    height: 100vh;
     width: 100%;
-    background-color: #1e0efd ;
+    background-color: #e5e5e5 ;
   }
-  
+ 
   #span-topo{
     display: flex;
     align-items: center;
@@ -496,10 +503,10 @@ header span {
     justify-content: center;
     flex-direction: column;
     position: absolute;
-    top: 66px;
+    top: 89px;
     height: 256px;
     width: 100%;
-    background-color: #e70e0e;
+    background-color: #ffffff;
   }
 
   #inputInfoBasicaDoQuiz{
@@ -510,7 +517,7 @@ header span {
   }
   #prosseguirCriarPerguntas{
     position: absolute;
-    top: 443px;
+    top: 374px;
     height: 54px;
     width: 86.4%;
     border-radius: 10px;
@@ -545,3 +552,37 @@ header span {
     font-weight: 700;
     font-style: normal;
     }
+
+    @media only screen and (min-width: 376px){
+      .quiz-servidor{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-left: 13%;
+        margin-right: 10.1%;
+        width: auto;
+        height: auto;
+        background-color: #e5e5e5;
+      }
+      
+      .quiz-content{
+        margin-right: 15px;
+        justify-content: space-evenly;
+        width: 31.38%;
+      }
+
+      .quiz-usuario-sem-quiz{
+        width: 72.91%;
+      }
+
+      .quiz-usuario-sem-quiz span{
+        width: 25%;
+      }
+
+      .quiz-usuario-sem-quiz button{
+        width: 14%;
+      }
+
+      
+    }
+    
